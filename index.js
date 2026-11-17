@@ -10,3 +10,22 @@ const games =[
     {title:`Доббль`,players: 6 ,borrower:`Аня` },
     {title:`Шахматы`,players: 2 ,borrower:null },
 ]
+
+function renderGames(){
+    gameList.innerHTML = '';
+    games.forEach((game)=>{
+        const li = document.createElement('li')  
+        let statusText;
+        if(game.borrower===null){
+            statusText=` Свободна`
+    }else{
+        statusText =`У ${game.borrower}` 
+    }
+
+    li.textContent = `${game.title} · ${game.players} игрока · ${statusText}`;
+
+    gameList.append(li);
+    })
+
+}
+renderGames();
