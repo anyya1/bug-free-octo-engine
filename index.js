@@ -28,4 +28,28 @@ function renderGames(){
     })
 
 }
+const message = document.getElementById('message')
+
+borrowButton.addEventListener(`click`, () => {
+const name = borrowerName.value.trim()
+const index = Number(gameSelect.value)
+const game = games[index]
+
+if(!name){
+    message.textContent = 'Введите имя';
+    return; 
+}
+if (game.borrower != null) {
+    message.textContent = 'Игра уже выдана';
+    return;
+  }
+
+  game.borrower = name;
+  message.textContent = 'Игра выдана';
+  renderGames();
+})
+
+
+
+
 renderGames();
