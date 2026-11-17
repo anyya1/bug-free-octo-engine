@@ -36,20 +36,35 @@ const index = Number(gameSelect.value)
 const game = games[index]
 
 if(!name){
-    message.textContent = 'Введите имя';
+    message.textContent = 'Введите имя'
     return; 
 }
 if (game.borrower != null) {
-    message.textContent = 'Игра уже выдана';
+    message.textContent = 'Игра уже выдана'
     return;
   }
 
-  game.borrower = name;
-  message.textContent = 'Игра выдана';
-  renderGames();
+  game.borrower = name
+  message.textContent = 'Игра выдана'
+  renderGames()
 })
 
 
+returnButton.addEventListener('click', () => {
+    const index = Number(gameSelect.value)
+    const game = games[index]
+
+    message.textContent = ''
+
+    if (game.borrower === null) {
+      message.textContent = 'Игра уже свободна'
+      return;
+    }
+
+    game.borrower = null;
+    message.textContent = 'Игра возвращена'
+    renderGames(); 
+  });
 
 
 renderGames();
