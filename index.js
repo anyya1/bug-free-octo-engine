@@ -48,11 +48,23 @@ function renderGames(){
   }
 }
 
-if(nameGame != null && numberPlayer > 0){
+gameButton.addEventListener('click', () => {
+  const title = nameGame.value.trim();
+  const players = Number(numberPlayer.value);
 
-}
+  if (!title) {
+      message.textContent = 'Введите название игры';
+      return;
+  }
+  if (!Number.isInteger(players) || players <= 0) {
+      message.textContent = 'Число игроков должно быть положительным целым';
+      return;
+  }
 
+  games.push({ title, players, borrower: null });
 
+  renderGames();
+});
 
 const message = document.getElementById('message')
 
