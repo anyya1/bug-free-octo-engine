@@ -4,6 +4,8 @@ const borrowerName = document.getElementById(`borrowerName`)
 const borrowButton = document.getElementById(`borrowButton`)
 const returnButton = document.getElementById(`returnButton`)
 
+const message = document.getElementById('message')
+
 const onlyFree = document.getElementById('onlyFree');
 
 const nameGame = document.getElementById('nameGame');
@@ -48,6 +50,16 @@ function renderGames(){
   }
 }
 
+function renderGameOptions(){
+  gameSelect.innerHTML = '';
+  games.forEach((game, index)=>{
+      const option = document.createElement('option');
+      option.textContent = game.title;
+      option.value = index;
+      gameSelect.append(option);
+  })
+}
+
 gameButton.addEventListener('click', () => {
   const title = nameGame.value.trim();
   const players = Number(numberPlayer.value);
@@ -64,9 +76,10 @@ gameButton.addEventListener('click', () => {
   games.push({ title, players, borrower: null });
 
   renderGames();
+  renderGameOptions();
 });
 
-const message = document.getElementById('message')
+
 
 borrowButton.addEventListener(`click`, () => {
 const name = borrowerName.value.trim()
@@ -84,7 +97,8 @@ if (game.borrower != null) {
 
   game.borrower = name
   message.textContent = 'Игра выдана'
-  renderGames()
+
+  renderGames();
 })
 
 
@@ -106,3 +120,4 @@ returnButton.addEventListener('click', () => {
 
 
 renderGames();
+renderGameOptions();
