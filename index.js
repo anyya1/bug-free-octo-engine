@@ -4,6 +4,11 @@ const borrowerName = document.getElementById(`borrowerName`)
 const borrowButton = document.getElementById(`borrowButton`)
 const returnButton = document.getElementById(`returnButton`)
 
+const onlyFree = document.getElementById('onlyFree');
+
+const nameGame = document.getElementById('nameGame');
+const numberPlayer = document.getElementById('numberPlayer');
+const gameButton = document.getElementById('gameButton');
 
 const games =[
     {title:`Каркассон`,players: 4 ,borrower:null }, 
@@ -11,23 +16,44 @@ const games =[
     {title:`Шахматы`,players: 2 ,borrower:null },
 ]
 
+onlyFree.addEventListener('change', renderGames);
+
 function renderGames(){
-    gameList.innerHTML = '';
-    games.forEach((game)=>{
-        const li = document.createElement('li')  
-        let statusText;
-        if(game.borrower===null){
-            statusText=` Свободна`
-    }else{
-        statusText =`У ${game.borrower}` 
-    }
+  gameList.innerHTML = '';
 
-    li.textContent = `${game.title} · ${game.players} игрока · ${statusText}`;
+  let count = 0;
 
-    gameList.append(li);
-    })
+  games.forEach((game)=>{
+      if (onlyFree.checked && game.borrower !== null) {
+          return;
+      }
+
+      count++;
+
+      const li = document.createElement('li')  
+      let statusText;
+      if(game.borrower===null){
+          statusText=` Свободна`
+      }else{
+          statusText =`У ${game.borrower}` 
+      }
+      li.textContent = `${game.title} · ${game.players} игрока · ${statusText}`;
+      gameList.append(li);
+  })
+
+  if (count === 0) {
+      const li = document.createElement('li');
+      li.textContent = 'Свободных игр пока нет';
+      gameList.append(li);
+  }
+}
+
+if(nameGame != null && numberPlayer > 0){
 
 }
+
+
+
 const message = document.getElementById('message')
 
 borrowButton.addEventListener(`click`, () => {
